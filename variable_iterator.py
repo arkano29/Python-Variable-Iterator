@@ -33,9 +33,20 @@ class VariableIterator:
 
 def main():
     print("A single loop is used to run through 3 variables")
-    iterator = VariableIterator(features = [6,3,56],epochs = [50,23],monitor = [10,412,14])
+    
+    features = [6,3,56]
+    epochs = [50,23]
+    monitors = [10,412,14]
+    
+    iterator = VariableIterator(Features = features,Epochs = epochs,Monitor = monitors)
     for feature,epoch,monitor in iterator:
         print(f"{feature,epoch,monitor}")  
+    
+    print("The same is obtained when nesting for loops in the same order")
+    for feature in features:
+        for epoch in epochs:
+            for monitor in monitors:
+                print(f"{feature,epoch,monitor}") 
         
 if __name__ == "__main__":
     main()
