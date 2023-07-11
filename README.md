@@ -1,6 +1,6 @@
 # Description
 
-Object to iterate through different variables, instead of nesting a number of loops, you can run through all of them in a single loop
+Object to iterate through different variables, instead of nesting a number of loops, one can run through all of them in a single loop.
 
 The advantage is that instead of writing this:
 
@@ -10,15 +10,23 @@ epochs = [50,23]
 monitors = [10,412,14]
 
 for feature in features:
-        for epoch in epochs:
-            for monitor in monitors:
-                print(f"{feature,epoch,monitor}") 
+    for epoch in epochs:
+        for monitor in monitors:
+            print(f"{feature,epoch,monitor}") 
 ```
 
-You get an iterator that runs through all the possible conbinations:
+One gets an iterator that runs through all the possible conbinations:
 
 ```python
 iterator = VariableIterator(Features = features,Epochs = epochs,Monitor = monitors)
-    for feature,epoch,monitor in iterator:
-        print(f"{feature,epoch,monitor}") 
+for feature,epoch,monitor in iterator:
+    print(f"{feature,epoch,monitor}") 
+```
+
+The variables names are accessible with the attribute `variables_names`. This may be helpful if one needs the variables to be in a dictionary:
+```python
+iterator = VariableIterator(Features = features,Epochs = epochs,Monitor = monitors)
+for variables in iterator:
+    variable_dict = dict(zip(iterator.variables_names,variables))
+    print(variable_dict) 
 ```

@@ -1,16 +1,16 @@
 import numpy as np
 class VariableIterator:
-    def __init__(self,**parameters_lists):
-        self.parameters_lists = parameters_lists
-        self.parameters_names = list(parameters_lists.keys())
-        self.number_of_parameters = len(parameters_lists)
-        self.lenghts = [len(parameter_list) for parameter_list in parameters_lists.values()]
+    def __init__(self,**variables_lists):
+        self.variables_lists = variables_lists
+        self.variables_names = list(variables_lists.keys())
+        self.number_of_variables = len(variables_lists)
+        self.lenghts = [len(variable_list) for variable_list in variables_lists.values()]
         self.number_of_outputs = np.prod(self.lenghts)
-        self.indexes = [0 for _ in parameters_lists]
+        self.indexes = [0 for _ in variables_lists]
         
     def __iter__(self):
         self.n = 0
-        self.indexes = [0 for _ in self.parameters_lists]
+        self.indexes = [0 for _ in self.variables_lists]
         return self
     
     def update_indexes(self):
@@ -23,12 +23,12 @@ class VariableIterator:
     def __next__(self):
         if self.n >= self.number_of_outputs:
             self.n = 0
-            self.indexes = [0 for _ in self.parameters_lists]
+            self.indexes = [0 for _ in self.variables_lists]
             raise StopIteration
-        parameters = [self.parameters_lists[self.parameters_names[i]][self.indexes[i]] for i in range(self.number_of_parameters)]
+        variables = [self.variables_lists[self.variables_names[i]][self.indexes[i]] for i in range(self.number_of_variables)]
         self.n+=1
         self.update_indexes()
-        return tuple(parameters)
+        return tuple(variables)
       
 
 def main():
