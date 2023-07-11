@@ -4,7 +4,7 @@ Object to iterate through different variables, instead of nesting a number of lo
 
 The advantage is that instead of writing this:
 
-``python
+```python
 features = [6,3,56]
 epochs = [50,23]
 monitors = [10,412,14]
@@ -17,7 +17,7 @@ for feature in features:
 
 You get an iterator that runs through all the possible conbinations:
 
-``python
+```python
 iterator = VariableIterator(Features = features,Epochs = epochs,Monitor = monitors)
     for feature,epoch,monitor in iterator:
         print(f"{feature,epoch,monitor}") 
