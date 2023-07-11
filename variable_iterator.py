@@ -7,6 +7,11 @@ class VariableIterator:
         self.lenghts = [len(variable_list) for variable_list in variables_lists.values()]
         self.number_of_outputs = np.prod(self.lenghts)
         self.indexes = [0 for _ in variables_lists]
+        self.return_dict = False
+        
+    def as_dict(self):
+        self.return_dict = True
+        return self
         
     def __iter__(self):
         self.n = 0
@@ -28,6 +33,8 @@ class VariableIterator:
         variables = [self.variables_lists[self.variables_names[i]][self.indexes[i]] for i in range(self.number_of_variables)]
         self.n+=1
         self.update_indexes()
+        if self.return_dict:
+            return dict(zip(self.variables_names,variables))
         return tuple(variables)
       
 
@@ -47,6 +54,16 @@ def main():
         for epoch in epochs:
             for monitor in monitors:
                 print(f"{feature,epoch,monitor}") 
+                
+    print("Print variables with their names")
+    for variables in iterator:
+        variable_dict = dict(zip(iterator.variables_names,variables))
+        print(variable_dict) 
+        
+    print("Get dictionary directly")
+    iterator = VariableIterator(Features = features,Epochs = epochs,Monitor = monitors).as_dict()
+    for variable_dict in iterator:
+        print(variable_dict) 
         
 if __name__ == "__main__":
     main()
